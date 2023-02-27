@@ -8,3 +8,14 @@
 legend ~ div.form-check:first-of-type {
   clear: left;
 }
+
+.simple_form {
+  background-color: #FFFFF0;
+  border-radius: 8px;
+  padding: 15px;
+
+  .btn {
+  background-color: #00B9E8;
+  color: #F0FFFF;
+  }
+}
