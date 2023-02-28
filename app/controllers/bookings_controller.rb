@@ -9,7 +9,7 @@ class BookingsController < ApplicationController
     @booking.plane = Plane.find(params[:plane_id])
     @booking.user = current_user
     if @booking.save
-      redirect_to plane_path(@plane)
+      redirect_to plane_path(@booking.plane)
     else
       render :new, status: :unprocessable_entity
     end
@@ -17,12 +17,12 @@ class BookingsController < ApplicationController
 
   def validate
     @booking = Booking.find(params[:id])
-    @booking.update(status: "accepted")
+    @booking.update(status: :accepted)
   end
 
   def deny
     @booking = Booking.find(params[:id])
-    @booking.update(status: "denied")
+    @booking.update(status: :denied)
   end
 
   private
