@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   skip_after_action :verify_authorized, only: [:home, :profile]
 
   def home
+    @planes = Plane.all
   end
 
   # à retravailler une fois qu'on aura fait les autorisations
