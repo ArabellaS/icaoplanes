@@ -5,3 +5,5 @@
 <p><%= @plane.category %></p>
 <p>Created by <%= @plane.user.email %></p>
 <p>At <%= @plane.created_at %></p>
+<%= link_to "Book this plane", new_plane_booking_path(@plane.id) %>
+<%= link_to "All planes", planes_path %>
