@@ -5,5 +5,11 @@
 <p><%= @plane.category %></p>
 <p>Created by <%= @plane.user.email %></p>
 <p>At <%= @plane.created_at %></p>
+<% if policy(@plane).edit? %>
+  <%= link_to "Edit this plane", edit_plane_path(@plane) %> |
+<% end %>
+<% if policy(@plane).destroy? %>
+  <%= link_to "Edit this plane", edit_plane_path(@plane) %> |
+<% end %>
 <%= link_to "Book this plane", new_plane_booking_path(@plane.id) %>
 <%= link_to "All planes", planes_path %>
