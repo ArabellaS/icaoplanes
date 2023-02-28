@@ -1,5 +1,6 @@
 class PagesController < ApplicationController
   def home
+    @planes = Plane.all
   end
 
   # à retravailler une fois qu'on aura fait les autorisations
