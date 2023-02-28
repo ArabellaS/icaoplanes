@@ -1,18 +1,18 @@
 <div class="row row-cols-1 row-cols-md-2 g-4 m-1">
   <% @planes.each do |plane| %>
     <div class="col">
-      <div class="card">
+      <div class="card card-plane">
         <%= image_tag "https://images.dassault-aviation.com/w_2000,f_auto,q_auto,g_center,dpr_auto,c_fill/wp-auto-upload/1/files/2021/06/DA00026229_S-1.jpg", class: "card-img-top" %>
         <div class="card-body">
           <h5 class="card-title"><%= plane.name %></h5>
-          <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+          <p class="card-text"><%= plane.description %></p>
           <p class="card-text"><i class="fa-solid fa-location-dot"></i> <%= plane.location %></p>
           <p class="card-text"><i class="fas fa-couch"></i> <%= plane.seats %> seats</p>
           <p class="card-text"><i class="fas fa-tachometer-alt"></i> <%= plane.speed %> km/h</p>
           <p class="card-text"><i class="fas fa-plane"></i> Cat. <%= plane.category %></p>
         </div>
         <div class="card-footer">
-          <small class="text-muted"><%= link_to 'Read more', plane %></small>
+          <span class="read-more"><small><%= link_to 'Read more', plane %></small></span>
         </div>
       </div>
     </div>
