@@ -1,5 +1,9 @@
 <div class="row">
+<% if @plane.photo.key? %>
+    <div class="p-5 mb-4 bg-light rounded-3" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= cl_image_path @plane.photo.key %>');">
+  <% else %>
   <div class="p-5 mb-4 bg-light rounded-3" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.dassault-aviation.com/w_2000,f_auto,q_auto,g_center,dpr_auto,c_fill/wp-auto-upload/1/files/2021/06/DA00026229_S-1.jpg);">
+  <% end %>
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold"><%= @plane.name %></h1>
       <p class="col-md-8 fs-4"><%= @plane.description %></p>
