@@ -11,11 +11,11 @@ class BookingPolicy < ApplicationPolicy
     end
 
     def validate?
-      record.plane.user == user
+      record.plane.user == user && record.status == 'pending'
     end
 
     def deny?
-      record.plane.user == user
+      record.plane.user == user && record.status == 'pending'
     end
 
     def update?
