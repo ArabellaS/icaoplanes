@@ -20,6 +20,12 @@
         <p><i class="fas fa-plane"></i> Cat. <%= @plane.category %></p>
         <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
       </div>
+      <% if policy(@plane).edit? %>
+        <%= link_to "Edit this plane", edit_plane_path(@plane) %> |
+      <% end %>
+      <% if policy(@plane).destroy? %>
+        <%= link_to "Delete this plane", plane_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+      <% end %>
     </div>
     <div class="col-md-6">
       <div class="h-100 p-5 bg-light border rounded-3">

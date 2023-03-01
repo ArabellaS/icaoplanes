@@ -31,11 +31,13 @@ class PlanesController < ApplicationController
 
   def update
     authorize @plane
-    @plane.update
+    @plane.update(plane_params)
+    redirect_to plane_path(@plane)
   end
 
   def destroy
     authorize @plane
+    @plane.destroy
   end
 
   private
