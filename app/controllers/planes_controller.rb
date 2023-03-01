@@ -3,6 +3,14 @@ class PlanesController < ApplicationController
   before_action :set_plane, except: [:index, :new, :create]
   def index
     @planes = policy_scope(Plane)
+    @markers = @planes.geocoded.map do |plane|
+      {
+        lat: plane.latitude,
+        lng: plane.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {plane: plane}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    end
   end
 
   def show
@@ -47,6 +55,6 @@ class PlanesController < ApplicationController
   end
 
   def plane_params
-    params.require(:plane).permit(:name, :seats, :speed, :location, :category, :description, :photo)
+    params.require(:plane).permit(:name, :seats, :speed, :address, :category, :description, :photo)
   end
 end
