@@ -1,5 +1,5 @@
 class PlanesController < ApplicationController
-
+  skip_before_action :authenticate_user!, only: :index
   before_action :set_plane, except: [:index, :new, :create]
   def index
     @planes = policy_scope(Plane)

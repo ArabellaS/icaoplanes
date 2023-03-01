@@ -13,6 +13,7 @@
       <th scope="col">Decline</th>
     </tr>
   </thead>
+  <%= console %>
   <tbody>
     <% @bookings.each do |booking| %>
       <tr>
@@ -23,12 +24,12 @@
         <td><%= booking.end_date %></td>
         <td><%= booking.status %></td>
         <td>
-          <% if booking.status == "pending"  %>
+          <% if policy(booking).validate?  %>
             <%= link_to "Accept", validate_booking_path(booking), data: { 'turbo-method': :patch } %>
           <% end %>
         </td>
         <td>
-          <% if booking.status == "pending"  %>
+          <% if policy(booking).deny? %>
             <%= link_to "Decline", deny_booking_path(booking), data: { 'turbo-method': :patch } %>
           <% end %>
         </td>
