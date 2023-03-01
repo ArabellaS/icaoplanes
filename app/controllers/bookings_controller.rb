@@ -23,11 +23,13 @@ class BookingsController < ApplicationController
   def validate
     authorize @booking
     @booking.update(status: :accepted)
+    redirect_to profile_path
   end
 
   def deny
     authorize @booking
     @booking.update(status: :denied)
+    redirect_to profile_path
   end
 
   def update
