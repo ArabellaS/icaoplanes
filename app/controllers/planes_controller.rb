@@ -46,6 +46,7 @@ class PlanesController < ApplicationController
   def destroy
     authorize @plane
     @plane.destroy
+    redirect_to profile_path
   end
 
   private
