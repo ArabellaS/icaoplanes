@@ -39,14 +39,20 @@ class PlanesController < ApplicationController
 
   def update
     authorize @plane
-    @plane.update(plane_params)
-    redirect_to plane_path(@plane)
+    if @plane.update(plane_params)
+      redirect_to plane_path(@plane)
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
     authorize @plane
-    @plane.destroy
-    redirect_to profile_path
+    if @plane.destroy
+      redirect_to profile_path, success: "your plane was destroyed!"
+    else
+      redirect_to profile_path, warning: "your plane was not destroyed!"
+    end
   end
 
   private
