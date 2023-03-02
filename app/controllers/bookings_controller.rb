@@ -1,17 +1,17 @@
 class BookingsController < ApplicationController
 
   before_action :set_booking, except: [:new, :create]
+  before_action :set_plane, only: [:new, :create]
 
   def new
     @booking = Booking.new
     authorize @booking
-    @plane = Plane.find(params[:plane_id])
   end
 
   def create
     @booking = Booking.new(booking_params)
     authorize @booking
-    @booking.plane = Plane.find(params[:plane_id])
+    @booking.plane = @plane
     @booking.user = current_user
     if @booking.save
       redirect_to plane_path(@booking.plane)
@@ -43,6 +43,10 @@ class BookingsController < ApplicationController
   end
 
   private
+
+  def set_plane
+    @plane = Plane.find(params[:plane_id])
+  end
 
   def set_booking
     @booking = Booking.find(params[:id])

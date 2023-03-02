@@ -15,6 +15,14 @@ class PlanesController < ApplicationController
 
   def show
     authorize @plane
+    @markers = [
+      {
+        lat: @plane.latitude,
+        lng: @plane.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {plane: @plane}),
+        marker_html: render_to_string(partial: "marker")
+      }
+    ]
   end
 
   def new

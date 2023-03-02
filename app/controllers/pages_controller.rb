@@ -10,5 +10,6 @@ class PagesController < ApplicationController
   def profile
     @bookings = Booking.all
     @planes = Plane.all
+    @n = 0
   end
 end
