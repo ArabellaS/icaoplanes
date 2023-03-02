@@ -3,21 +3,21 @@ Plane.destroy_all# if Rails.env.development?
 User.destroy_all# if Rails.env.development?
 
 User.create!(
-  name: "Alexis",
+  name: "alexis",
   password: "azerty",
   email: "alexis@test.fr",
   dob: Date.new(1992, 11, 3)
 )
 
 User.create!(
-  name: "Cécile",
+  name: "cecile",
   password: "azerty",
   email: "cecile@test.fr",
   dob: Date.new(1992, 11, 3)
 )
 
 User.create!(
-  name: "Ouss",
+  name: "ouss",
   password: "azerty",
   email: "ouss@test.fr",
   dob: Date.new(1992, 11, 3)

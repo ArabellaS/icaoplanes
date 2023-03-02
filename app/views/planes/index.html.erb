@@ -1,4 +1,5 @@
 <div class="row">
+
   <%= form_with url: planes_path, method: :get, class: "d-flex" do %>
     <%= text_field_tag :query,
       params[:query],
@@ -12,7 +13,8 @@
     %>
  <%= submit_tag "SEARCH", class: "btn btn-success" %>
 <% end %>
-  <div class="col-8">
+  <div class="col-8 ps-5 mb-3">
+
     <div class="row">
       <% @planes.each do |plane| %>
         <div class="col-4">
@@ -24,7 +26,7 @@
             <% end %>
             <div class="card-body">
               <h5 class="card-title"><%= plane.name %></h5>
-              <p class="card-text"><%= plane.description %></p>
+              <p class="card-text"><%= plane.description.truncate_words(18) %></p>
               <p class="card-text"><i class="fa-solid fa-location-dot"></i> <%= plane.address %></p>
               <p class="card-text"><i class="fas fa-couch"></i> <%= plane.seats %> seats</p>
               <p class="card-text"><i class="fas fa-tachometer-alt"></i> <%= plane.speed %> km/h</p>
