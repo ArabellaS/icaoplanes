@@ -1,4 +1,4 @@
-<h1 class="m-2">My planes</h1>
+<h1 class="m-3">My planes</h1>
 <table class="table">
   <thead>
     <tr>
@@ -36,7 +36,9 @@
   </tbody>
 </table>
 
-<h1 class="m-2">My planes in booking</h1>
+<%= link_to "+ add a plane", new_plane_path %>
+
+<h1 class="m-3">My planes in booking</h1>
 <table class="table">
   <thead>
     <tr>
@@ -80,7 +82,7 @@
   </tbody>
 </table>
 
-<h1 class="m-2">My bookings</h1>   
+<h1 class="m-3">My bookings</h1>   
 <table class="table">
   <thead>
     <tr>
@@ -110,4 +112,4 @@
   </tbody>
 </table>
 
-<%= link_to "All planes", planes_path %>
+<%= link_to "+ new booking", planes_path %>
