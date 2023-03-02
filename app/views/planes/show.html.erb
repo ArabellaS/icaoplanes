@@ -1,26 +1,26 @@
-<div class="row mt-4">
+<div class="row">
 <% if @plane.photo.key? %>
-    <div class="p-5 mb-4 bg-light rounded-3" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('<%= cl_image_path @plane.photo.key %>');">
+    <div class="p-5 mb-4 show-banner" style="background-image: linear-gradient(rgb(139 139 139 / 40%),rgb(0 0 0 / 40%)), url('<%= cl_image_path @plane.photo.key %>');">
   <% else %>
-  <div class="p-5 mb-4 bg-light rounded-3" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(https://images.dassault-aviation.com/w_2000,f_auto,q_auto,g_center,dpr_auto,c_fill/wp-auto-upload/1/files/2021/06/DA00026229_S-1.jpg);">
+  <div class="p-5 mb-4 show-banner" style="background-image: linear-gradient(rgb(139 139 139 / 40%),rgb(0 0 0 / 40%)), url(https://images.dassault-aviation.com/w_2000,f_auto,q_auto,g_center,dpr_auto,c_fill/wp-auto-upload/1/files/2021/06/DA00026229_S-1.jpg);">
   <% end %>
     <div class="container-fluid py-5">
-      <h1 class="display-5 fw-bold"><%= @plane.name %></h1>
-      <p class="col-md-8 fs-4"><%= @plane.description %></p>
+      <h1 class="display-5"><%= @plane.name %></h1>
       <% if current_user != @plane.user %>
         <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg first" %>
       <% end %>
     </div>
   </div>
-  <div class="row align-items-md-stretch mb-3">
+  <div class="row align-items-md-stretch mb-3 mt-4">
     <div class="col-md-6">
-      <div class="h-100 p-5 text-bg rounded-3">
+      <div class="ps-5 text-bg rounded-3">
         <h2>Some features</h2>
         <p><i class="fa-solid fa-location-dot"></i> <%= @plane.address %></p>
         <p><i class="fas fa-couch"></i> <%= @plane.seats %> seats</p>
         <p><i class="fas fa-tachometer-alt"></i> <%= @plane.speed %> km/h</p>
         <p><i class="fas fa-plane"></i> Cat. <%= @plane.category %></p>
-        <p><i class="fa-solid fa-euro-sign"></i><%= @plane.price %> per day</p>
+        <p><i class="fa-solid fa-euro-sign"></i>  <%= @plane.price %> per day</p>
+        <p><i class="fa-solid fa-user"></i>  <%= @plane.user.name %></p>
         <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
       </div>
       <% if policy(@plane).edit? %>
@@ -31,10 +31,8 @@
       <% end %>
     </div>
     <div class="col-md-6">
-      <div class="h-100 p-5 bg-light border rounded-3">
-        <h2>I want to see others</h2>
-        <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-        <%= link_to "All planes", planes_path, class: "btn btn-outline-secondary second" %>
+      <div class="p-5 bg-light border rounded-3">
+        <p><%= @plane.description %></p>
       </div>
     </div>
   </div>
