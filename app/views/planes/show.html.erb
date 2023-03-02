@@ -18,6 +18,7 @@
         <p><i class="fas fa-couch"></i> <%= @plane.seats %> seats</p>
         <p><i class="fas fa-tachometer-alt"></i> <%= @plane.speed %> km/h</p>
         <p><i class="fas fa-plane"></i> Cat. <%= @plane.category %></p>
+        <p><i class="fa-solid fa-euro-sign"></i><%= @plane.price %> per day</p>
         <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
       </div>
       <% if policy(@plane).edit? %>
