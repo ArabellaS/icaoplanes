@@ -1,38 +1,97 @@
-<h1>Manage bookings</h1>
-
+<h1 class="m-2">My planes</h1>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">#</th>
       <th scope="col">Plane</th>
-      <th scope="col">Request by</th>
+      <th scope="col">Description</th>
+      <th scope="col">Price</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @planes.each do |plane| %>
+      <% if plane.user_id == current_user.id %>
+        <tr>
+          <th scope="row"><%= @n = @n + 1 %></th>
+          <td><%= plane.name %></td>
+          <td><%= plane.description %></td>
+          <td><%= plane.price %></td>
+          <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<h1 class="m-2">My planes in booking</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Plane</th>
+      <th scope="col">Status</th>
       <th scope="col">Start</th>
       <th scope="col">End</th>
-      <th scope="col">Status</th>
-      <th scope="col">Accept</th>
-      <th scope="col">Decline</th>
+      <th scope="col">Request by</th>
+      <th scope="col">Price</th>
+      <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <% @bookings.each do |booking| %>
-      <tr>
-        <th scope="row"><%= booking.id %></th>
-        <td><%= booking.plane.name %></td>
-        <td><%= booking.user_id %></td>
-        <td><%= booking.start_date %></td>
-        <td><%= booking.end_date %></td>
-        <td><%= booking.status %></td>
-        <td>
-          <% if policy(booking).validate?  %>
-            <%= link_to "Accept", validate_booking_path(booking), data: { 'turbo-method': :patch } %>
-          <% end %>
-        </td>
-        <td>
-          <% if policy(booking).deny? %>
-            <%= link_to "Decline", deny_booking_path(booking), data: { 'turbo-method': :patch } %>
-          <% end %>
-        </td>
-      </tr>
+      <% if booking.plane.user_id == current_user.id %>
+        <tr>
+          <th scope="row"><%= @n = @n + 1 %></th>
+          <td><%= booking.plane.name %></td>
+          <td><em><%= booking.status %></em></td>
+          <td><%= booking.start_date.to_formatted_s(:short) %></td>
+          <td><%= booking.end_date.to_formatted_s(:short) %></td>
+          <td><%= booking.user_id %></td>
+          <td></td>
+          <td>
+            <% if policy(booking).validate?  %>
+              <%= link_to "Accept", validate_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-primary btn-sm" %>
+            <% end %>
+          </td>
+          <td>
+            <% if policy(booking).deny? %>
+              <%= link_to "Decline", deny_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-secondary btn-sm" %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<h1 class="m-2">My bookings</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Plane</th>
+      <th scope="col">Status</th>
+      <th scope="col">Start</th>
+      <th scope="col">End</th>
+      <th scope="col">Price</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bookings.each do |booking| %>
+      <% if booking.user_id == current_user.id %>
+        <tr>
+          <th scope="row"><%= @n = @n + 1 %></th>
+          <td><%= booking.plane.name %></td>
+          <td><em><%= booking.status %></em></td>
+          <td><%= booking.start_date.to_formatted_s(:short) %></td>
+          <td><%= booking.end_date.to_formatted_s(:short) %></td>
+          <td></td>
+          <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
