@@ -7,7 +7,7 @@
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold"><%= @plane.name %></h1>
       <p class="col-md-8 fs-4"><%= @plane.description %></p>
-      <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg" %>
+      <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg first" %>
     </div>
   </div>
   <div class="row align-items-md-stretch mb-3">
@@ -32,7 +32,7 @@
       <div class="h-100 p-5 bg-light border rounded-3">
         <h2>I want to see others</h2>
         <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-        <%= link_to "All planes", planes_path, class: "btn btn-outline-secondary" %>
+        <%= link_to "All planes", planes_path, class: "btn btn-outline-secondary second" %>
       </div>
     </div>
   </div>
