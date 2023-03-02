@@ -22,10 +22,10 @@
         <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
       </div>
       <% if policy(@plane).edit? %>
-        <%= link_to "Edit this plane", edit_plane_path(@plane) %> |
+        <%= link_to "Edit this plane", edit_plane_path(@plane), class: "btn btn-outline-secondary second" %> |
       <% end %>
       <% if policy(@plane).destroy? %>
-        <%= link_to "Delete this plane", plane_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+        <%= link_to "Delete this plane", plane_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "btn btn-outline-secondary second" %>
       <% end %>
     </div>
     <div class="col-md-6">
