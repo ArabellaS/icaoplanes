@@ -7,7 +7,9 @@
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold"><%= @plane.name %></h1>
       <p class="col-md-8 fs-4"><%= @plane.description %></p>
-      <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg first" %>
+      <% if current_user != @plane.user %>
+        <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg first" %>
+      <% end %>
     </div>
   </div>
   <div class="row align-items-md-stretch mb-3">
