@@ -2,7 +2,19 @@ class PlanesController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
   before_action :set_plane, except: [:index, :new, :create]
   def index
-    @planes = policy_scope(Plane)
+    if params[:query].present?
+      @planes = policy_scope(Plane).search_by_name_and_description(params[:query])
+    else
+      @planes = policy_scope(Plane)
+    end
+
+    if params[:location].present?
+      @planes = @planes.near(params[:location], 200)
+    end
+    # Creer un nouvel input dans le formulaire ded recherche
+    # nommer cet input de facon sémantique, "location"
+    # ensuite, on récupère dans le controller (ici) le params[:location]
+    # si ce paraml est present, dans ce cas, utiliser la methode .near sur @planes
     @markers = @planes.geocoded.map do |plane|
       {
         lat: plane.latitude,

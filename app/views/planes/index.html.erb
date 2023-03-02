@@ -1,4 +1,17 @@
 <div class="row">
+  <%= form_with url: planes_path, method: :get, class: "d-flex" do %>
+    <%= text_field_tag :query,
+      params[:query],
+      class: "form-control",
+      placeholder: "Find a plane"
+    %>
+    <%= text_field_tag :location,
+      params[:location],
+      class: "form-control",
+      placeholder: "Where"
+    %>
+ <%= submit_tag "SEARCH", class: "btn btn-success" %>
+<% end %>
   <div class="col-8">
     <div class="row">
       <% @planes.each do |plane| %>
