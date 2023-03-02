@@ -7,7 +7,9 @@
     <div class="container-fluid py-5">
       <h1 class="display-5 fw-bold"><%= @plane.name %></h1>
       <p class="col-md-8 fs-4"><%= @plane.description %></p>
-      <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg" %>
+      <% if current_user != @plane.user %>
+        <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-primary btn-lg first" %>
+      <% end %>
     </div>
   </div>
   <div class="row align-items-md-stretch mb-3">
@@ -22,17 +24,17 @@
         <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
       </div>
       <% if policy(@plane).edit? %>
-        <%= link_to "Edit this plane", edit_plane_path(@plane) %> |
+        <%= link_to "Edit this plane", edit_plane_path(@plane), class: "btn btn-outline-secondary second" %> |
       <% end %>
       <% if policy(@plane).destroy? %>
-        <%= link_to "Delete this plane", plane_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'} %>
+        <%= link_to "Delete this plane", plane_path, data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class: "btn btn-outline-secondary second" %>
       <% end %>
     </div>
     <div class="col-md-6">
       <div class="h-100 p-5 bg-light border rounded-3">
         <h2>I want to see others</h2>
         <p>Or, keep it light and add a border for some added definition to the boundaries of your content. Be sure to look under the hood at the source HTML here as we've adjusted the alignment and sizing of both column's content for equal-height.</p>
-        <%= link_to "All planes", planes_path, class: "btn btn-outline-secondary" %>
+        <%= link_to "All planes", planes_path, class: "btn btn-outline-secondary second" %>
       </div>
     </div>
   </div>

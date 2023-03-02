@@ -7,6 +7,8 @@
       <th scope="col">Description</th>
       <th scope="col">Price</th>
       <th scope="col">View</th>
+      <th scope="col">Edit</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
@@ -18,6 +20,16 @@
           <td><%= plane.description %></td>
           <td><%= plane.price %></td>
           <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
+          <td>
+            <% if policy(plane).edit? %>
+              <%= link_to "edit", edit_plane_path(plane), class:"btn btn-sm btn-outline-primary" %>
+            <% end %>
+          </td>
+          <td>
+            <% if policy(plane).destroy? %>
+              <%= link_to "delete", plane_path(plane), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-sm btn-outline-primary" %>
+            <% end %>
+          </td>
         </tr>
       <% end %>
     <% end %>
@@ -37,6 +49,7 @@
       <th scope="col">Price</th>
       <th scope="col"></th>
       <th scope="col"></th>
+      <th scope="col">View</th>
     </tr>
   </thead>
   <tbody>
@@ -60,13 +73,14 @@
               <%= link_to "Decline", deny_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-secondary btn-sm" %>
             <% end %>
           </td>
+          <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
         </tr>
       <% end %>
     <% end %>
   </tbody>
 </table>
 
-<h1 class="m-2">My bookings</h1>
+<h1 class="m-2">My bookings</h1>   
 <table class="table">
   <thead>
     <tr>

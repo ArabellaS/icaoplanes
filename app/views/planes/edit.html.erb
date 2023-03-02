@@ -9,7 +9,7 @@
       <%= f.input :seats %>
       <%= f.input :speed %>
       <%= f.input :address %>
-      <%= f.input :category %>
+      <%= f.input :category, collection: Plane.categories.keys %>
       <%= f.input :description %>
       <%= f.input :photo, as: :file %>
     </div>
