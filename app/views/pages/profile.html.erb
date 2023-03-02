@@ -1,128 +1,158 @@
-<h1 class="m-3">My planes</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Plane</th>
-      <th scope="col">Description</th>
-      <th scope="col">Price</th>
-      <th scope="col">Owner</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @planes.each do |plane| %>
-      <% if plane.user_id == current_user.id %>
-        <tr>
-          <th scope="row"><%= @n = @n + 1 %></th>
-          <td><%= plane.name %></td>
-          <td><%= plane.description %></td>
-          <td><%= plane.price %></td>
-          <td><i class="fa-solid fa-check"></i></td>
-          <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
-          <td>
-            <% if policy(plane).edit? %>
-              <%= link_to "edit", edit_plane_path(plane), class:"btn btn-sm btn-warning" %>
+<div class="accordion m-3" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <span style="color:black;">ALL PLANES</span>
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Plane</th>
+              <th scope="col">Description</th>
+              <th scope="col">Price</th>
+              <th scope="col">Owner</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @planes.each do |plane| %>
+              <% if plane.user_id == current_user.id %>
+                <tr>
+                  <th scope="row"><%= @n = @n + 1 %></th>
+                  <td><%= plane.name %></td>
+                  <td><%= plane.description %></td>
+                  <td><%= plane.price %></td>
+                  <td><i class="fa-solid fa-check"></i></td>
+                  <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
+                  <td>
+                    <% if policy(plane).edit? %>
+                      <%= link_to "edit", edit_plane_path(plane), class:"btn btn-sm btn-warning" %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if policy(plane).destroy? %>
+                      <%= link_to "delete", plane_path(plane), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-sm btn-warning" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% elsif %>
+                <tr>
+                  <th scope="row"><%= @n = @n + 1 %></th>
+                  <td><%= plane.name %></td>
+                  <td><%= plane.description %></td>
+                  <td><%= plane.price %></td>
+                  <td><%= plane.user.name %></td>
+                  <td><%= link_to "book", new_plane_booking_path(plane), class:"btn btn-sm btn-success" %></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              <% end %>
             <% end %>
-          </td>
-          <td>
-            <% if policy(plane).destroy? %>
-              <%= link_to "delete", plane_path(plane), data: {turbo_method: :delete, turbo_confirm: 'Are you sure?'}, class:"btn btn-sm btn-warning" %>
+          </tbody>
+        </table>
+
+        <%= link_to "+ add a plane", new_plane_path %>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <span style="color:black;">MY PLANES IN BOOKING</span>
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Plane</th>
+              <th scope="col">Status</th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Request by</th>
+              <th scope="col">Price</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @bookings.each do |booking| %>
+              <% if booking.plane.user_id == current_user.id %>
+                <tr>
+                  <th scope="row"><%= @n = @n + 1 %></th>
+                  <td><%= booking.plane.name %></td>
+                  <td><em><%= booking.status %></em></td>
+                  <td><%= booking.start_date.to_formatted_s(:short) %></td>
+                  <td><%= booking.end_date.to_formatted_s(:short) %></td>
+                  <td><%= booking.user.name %></td>
+                  <td></td>
+                  <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
+                  <td>
+                    <% if policy(booking).validate?  %>
+                      <%= link_to "accept", validate_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-primary btn-sm" %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if policy(booking).deny? %>
+                      <%= link_to "decline", deny_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-secondary btn-sm" %>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
             <% end %>
-          </td>
-        </tr>
-      <% elsif %>
-        <tr>
-          <th scope="row"><%= @n = @n + 1 %></th>
-          <td><%= plane.name %></td>
-          <td><%= plane.description %></td>
-          <td><%= plane.price %></td>
-          <td><%= plane.user.name %></td>
-          <td><%= link_to "book", new_plane_booking_path(plane), class:"btn btn-sm btn-success" %></td>
-          <td></td>
-          <td></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to "+ add a plane", new_plane_path %>
-
-<h1 class="m-3">My planes in booking</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Plane</th>
-      <th scope="col">Status</th>
-      <th scope="col">Start</th>
-      <th scope="col">End</th>
-      <th scope="col">Request by</th>
-      <th scope="col">Price</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @bookings.each do |booking| %>
-      <% if booking.plane.user_id == current_user.id %>
-        <tr>
-          <th scope="row"><%= @n = @n + 1 %></th>
-          <td><%= booking.plane.name %></td>
-          <td><em><%= booking.status %></em></td>
-          <td><%= booking.start_date.to_formatted_s(:short) %></td>
-          <td><%= booking.end_date.to_formatted_s(:short) %></td>
-          <td><%= booking.user.name %></td>
-          <td></td>
-          <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
-          <td>
-            <% if policy(booking).validate?  %>
-              <%= link_to "accept", validate_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-primary btn-sm" %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <span style="color:black;">MY BOOKINGS</span>
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Plane</th>
+              <th scope="col">Status</th>
+              <th scope="col">Start</th>
+              <th scope="col">End</th>
+              <th scope="col">Price</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @bookings.each do |booking| %>
+              <% if booking.user_id == current_user.id %>
+                <tr>
+                  <th scope="row"><%= @n = @n + 1 %></th>
+                  <td><%= booking.plane.name %></td>
+                  <td><em><%= booking.status %></em></td>
+                  <td><%= booking.start_date.to_formatted_s(:short) %></td>
+                  <td><%= booking.end_date.to_formatted_s(:short) %></td>
+                  <td></td>
+                  <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
+                </tr>
+              <% end %>
             <% end %>
-          </td>
-          <td>
-            <% if policy(booking).deny? %>
-              <%= link_to "decline", deny_booking_path(booking), data: { 'turbo-method': :patch }, class: "btn btn-secondary btn-sm" %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+          </tbody>
+        </table>
 
-<h1 class="m-3">My bookings</h1>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"></th>
-      <th scope="col">Plane</th>
-      <th scope="col">Status</th>
-      <th scope="col">Start</th>
-      <th scope="col">End</th>
-      <th scope="col">Price</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @bookings.each do |booking| %>
-      <% if booking.user_id == current_user.id %>
-        <tr>
-          <th scope="row"><%= @n = @n + 1 %></th>
-          <td><%= booking.plane.name %></td>
-          <td><em><%= booking.status %></em></td>
-          <td><%= booking.start_date.to_formatted_s(:short) %></td>
-          <td><%= booking.end_date.to_formatted_s(:short) %></td>
-          <td></td>
-          <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
-        </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
-
-<%= link_to "+ new booking", planes_path %>
+        <%= link_to "+ new booking", planes_path %>
+      </div>
+    </div>
+  </div>
+</div>
