@@ -26,7 +26,7 @@
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= plane.name %></td>
-                  <td><%= plane.description %></td>
+                  <td><%= plane.description.truncate_words(20) %></td>
                   <td><%= plane.price %></td>
                   <td><i class="fa-solid fa-check"></i></td>
                   <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
@@ -45,11 +45,11 @@
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= plane.name %></td>
-                  <td><%= plane.description %></td>
+                  <td><%= plane.description.truncate_words(20) %></td>
                   <td><%= plane.price %></td>
                   <td><%= plane.user.name %></td>
+                  <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
                   <td><%= link_to "book", new_plane_booking_path(plane), class:"btn btn-sm btn-success" %></td>
-                  <td></td>
                   <td></td>
                 </tr>
               <% end %>
@@ -74,11 +74,11 @@
             <tr>
               <th scope="col"></th>
               <th scope="col">Plane</th>
-              <th scope="col">Status</th>
               <th scope="col">Start</th>
               <th scope="col">End</th>
-              <th scope="col">Request by</th>
+              <th scope="col">Requested by</th>
               <th scope="col">Price</th>
+              <th scope="col">Status</th>
               <th scope="col"></th>
               <th scope="col"></th>
               <th scope="col"></th>
@@ -90,11 +90,11 @@
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= booking.plane.name %></td>
-                  <td><em><%= booking.status %></em></td>
                   <td><%= booking.start_date.to_formatted_s(:short) %></td>
                   <td><%= booking.end_date.to_formatted_s(:short) %></td>
                   <td><%= booking.user.name %></td>
                   <td></td>
+                  <td><em><%= booking.status %></em></td>
                   <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
                   <td>
                     <% if policy(booking).validate?  %>
@@ -127,10 +127,10 @@
             <tr>
               <th scope="col"></th>
               <th scope="col">Plane</th>
-              <th scope="col">Status</th>
               <th scope="col">Start</th>
               <th scope="col">End</th>
               <th scope="col">Price</th>
+              <th scope="col">Status</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -140,10 +140,10 @@
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= booking.plane.name %></td>
-                  <td><em><%= booking.status %></em></td>
                   <td><%= booking.start_date.to_formatted_s(:short) %></td>
                   <td><%= booking.end_date.to_formatted_s(:short) %></td>
                   <td></td>
+                  <td><em><%= booking.status %></em></td>
                   <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
                 </tr>
               <% end %>
