@@ -3,18 +3,38 @@
     <div class="row justify-content-center">
       <div class="col-6">
         <h1>Book <%= @plane.name %></h1>
-        <%= simple_form_for [@plane, @booking] do |f| %>
-          <%= f.error_notification %>
-          <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-          <div class="form-inputs">
-            <%= f.input :start_date, html5: true %>
-            <%= f.input :end_date, html5: true %>
+          <div data-controller="dynamic-booking-price" data-dynamic-booking-price-price-value="<%= @plane.price %>">
+            <%= simple_form_for [@plane, @booking], html: {
+                      data: {
+                        controller: 'flatpickr'
+                      }
+                    } do |f| %>
+              <%= f.error_notification %>
+              <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+              <div class="form-inputs">
+                <%= f.input :start_date, html5: true,
+                input_html: {
+                data: {
+                flatpickr_target: 'startDateInput', dynamic_booking_price_target: 'startDateInput', action: 'change->dynamic-booking-price#updatePrice'
+                } } %>
+                <%= f.input :end_date, html5: true,
+                input_html: {
+                data: {
+                flatpickr_target: 'endDateInput', dynamic_booking_price_target: 'endDateInput', action: 'change->dynamic-booking-price#updatePrice'
+                } } %>
+              </div>
+              <div class="form-actions btn">
+                <%= f.button :submit %>
+              </div>
+            <% end %>
+            <p>
+              Total price: 
+                <span data-dynamic-booking-price-target="priceHolder">
+                  <%= @plane.price %>
+                </span> € 
+            </p>
+            <%= link_to "See this plane", plane_path(@plane) %>
           </div>
-          <div class="form-actions btn">
-            <%= f.button :submit %>
-          </div>
-        <% end %>
-        <%= link_to "See this plane", plane_path(@plane) %>
       </div>
     </div>
   </div>
