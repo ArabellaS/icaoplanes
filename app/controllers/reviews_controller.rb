@@ -1,11 +1,12 @@
 class ReviewsController < ApplicationController
   def create
     @booking = Booking.find(params[:booking_id])
+    @plane = @booking.plane
     @review = Review.new(review_params)
     @review.booking = @booking
     authorize @review
     if @review.save
-      redirect_to profile_path
+      redirect_to plane_path(@plane)
     else
       render "profile", status: :unprocessable_entity
     end
