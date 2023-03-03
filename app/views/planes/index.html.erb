@@ -1,47 +1,36 @@
 <div class="row">
-
-  <%= form_with url: planes_path, method: :get, class: "d-flex" do %>
-    <%= text_field_tag :query,
-      params[:query],
-      class: "form-control",
-      placeholder: "Find a plane"
-    %>
-    <%= text_field_tag :location,
-      params[:location],
-      class: "form-control",
-      placeholder: "Where"
-    %>
- <%= submit_tag "SEARCH", class: "btn btn-success" %>
-<% end %>
   <div class="col-8 ps-5 mb-3">
-
     <div class="row">
-      <% @planes.each do |plane| %>
-        <div class="col-4">
-          <div class="card card-plane mt-4">
-            <% if plane.photo.key? %>
-              <%= cl_image_tag plane.photo.key, height: 180, crop: :fill, class: "card-img-top plane-card-img" %>
-            <% else %>
-              <%= image_tag "https://images.dassault-aviation.com/w_2000,f_auto,q_auto,g_center,dpr_auto,c_fill/wp-auto-upload/1/files/2021/06/DA00026229_S-1.jpg", class: "card-img-top plane-card-img" %>
-            <% end %>
-            <div class="card-body">
-              <h5 class="card-title"><%= plane.name %></h5>
-              <p class="card-text"><%= plane.description.truncate_words(18) %></p>
-              <p class="card-text"><i class="fa-solid fa-location-dot"></i> <%= plane.address %></p>
-              <p class="card-text"><i class="fas fa-couch"></i> <%= plane.seats %> seats</p>
-              <p class="card-text"><i class="fas fa-tachometer-alt"></i> <%= plane.speed %> km/h</p>
-              <p class="card-text"><i class="fas fa-plane"></i> Cat. <%= plane.category %></p>
-            </div>
-            <div class="card-footer">
-              <span class="read-more"><small><%= link_to 'Read more', plane %></small></span>
+      <% if @planes.empty? %>
+        <p class="empty-notice">There are no planes gros !</p>
+      <% else %>
+        <% @planes.each do |plane| %>
+          <div class="col-4">
+            <div class="card card-plane mt-4">
+              <% if plane.photo.key? %>
+                <%= cl_image_tag plane.photo.key, height: 180, crop: :fill, class: "card-img-top plane-card-img" %>
+              <% else %>
+                <%= image_tag "https://images.dassault-aviation.com/w_2000,f_auto,q_auto,g_center,dpr_auto,c_fill/wp-auto-upload/1/files/2021/06/DA00026229_S-1.jpg", class: "card-img-top plane-card-img" %>
+              <% end %>
+              <div class="card-body">
+                <h5 class="card-title"><%= plane.name %></h5>
+                <p class="card-text"><%= plane.description.truncate_words(18) %></p>
+                <p class="card-text"><i class="fa-solid fa-location-dot"></i> <%= plane.address %></p>
+                <p class="card-text"><i class="fas fa-couch"></i> <%= plane.seats %> seats</p>
+                <p class="card-text"><i class="fas fa-tachometer-alt"></i> <%= plane.speed %> km/h</p>
+                <p class="card-text"><i class="fas fa-plane"></i> Cat. <%= plane.category %></p>
+              </div>
+              <div class="card-footer">
+                <span class="read-more"><small><%= link_to 'Read more', plane %></small></span>
+              </div>
             </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
   </div>
   <div class="col-4">
-    <div class="map-planes mt-4">
+    <div class="map-planes">
       <div style="width: 100%; height: 100%;"
         data-controller="map"
         data-map-markers-value="<%= @markers.to_json %>"
