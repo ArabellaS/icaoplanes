@@ -11,3 +11,10 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.empty-notice {
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-top: 35vh;
+}
