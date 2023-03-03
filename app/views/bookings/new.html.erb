@@ -2,7 +2,7 @@
   <div class="container mt-4 mb-4 justify-content-center">
     <div class="row justify-content-center">
       <div class="col-6">
-        <h1>Book <%= @plane.name %></h1>
+        <h1 class="text-center">Book now <%= @plane.name %> !</h1>
           <div data-controller="dynamic-booking-price" data-dynamic-booking-price-price-value="<%= @plane.price %>">
             <%= simple_form_for [@plane, @booking], html: {
                       data: {
@@ -23,17 +23,19 @@
                 flatpickr_target: 'endDateInput', dynamic_booking_price_target: 'endDateInput', action: 'change->dynamic-booking-price#updatePrice'
                 } } %>
               </div>
-              <div class="form-actions btn">
+              <div class="form-actions btn btn-primary btn-lg">
                 <%= f.button :submit %>
               </div>
             <% end %>
-            <p>
+            <p class="lead text-center">
               Total price: 
                 <span data-dynamic-booking-price-target="priceHolder">
                   <%= @plane.price %>
-                </span> € 
+                </span> $
             </p>
+            <p class="text-center">
             <%= link_to "See this plane", plane_path(@plane) %>
+            </p>
           </div>
       </div>
     </div>
