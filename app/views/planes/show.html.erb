@@ -39,11 +39,14 @@
         </div>
       </div>
     </div>
-    <div class="col-12 p-5 text-center border">
+    <div class="col-12 pt-4 px-4 text-justify border">
+      <h2>Reviews for <%= @plane.name %></h2>
+      <div class="reviews p-3">
         <% @plane.reviews.each do |review| %>
           <%= review.content %> -
           <%= review.user.name %> <br> <br>
         <% end %>
+      </div>
     </div>
       <div class="col-12 mt-4">
       <div class="map-planes">
