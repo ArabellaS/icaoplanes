@@ -38,7 +38,7 @@
             <% else %>
               <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar dropdown-toggle", id: "navbarDropdown", data: { bs_toggle: "dropdown" }, 'aria-haspopup': true, 'aria-expanded': false %>
             <% end %>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <div class="dropdown-menu dropdown-menu-end z-above" aria-labelledby="navbarDropdown">
               <%= link_to "Rent your plane", new_plane_path, class: "dropdown-item" %>
               <%= link_to "Dashboard", profile_path, class: "dropdown-item" %>
               <%= link_to "Profile", profile_account_path, class: "dropdown-item" %>
