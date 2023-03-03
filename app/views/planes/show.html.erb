@@ -21,7 +21,9 @@
         <p><i class="fas fa-plane"></i> Cat. <%= @plane.category %></p>
         <p><i class="fa-solid fa-euro-sign"></i>  <%= @plane.price %> per day</p>
         <p><i class="fa-solid fa-user"></i>  <%= @plane.user.name %></p>
-        <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
+        <% if current_user != @plane.user %>
+          <%= link_to "Book this plane !", new_plane_booking_path(@plane.id), class: "btn btn-outline-light" %>
+        <% end %>
       </div>
       <% if policy(@plane).edit? %>
         <%= link_to "Edit this plane", edit_plane_path(@plane), class: "btn btn-outline-secondary second" %> |
@@ -36,11 +38,13 @@
       </div>
     </div>
   </div>
-  <div class="col-12 m-4 ps-5">
-    <% @plane.reviews.each do |review| %>
-      <%= review.content %>
-      <%= review.user.name %>
-    <% end %>
+  <div class="container">
+    <div class="col-12 m-4 ps-5 text-center border">
+      <% @plane.reviews.each do |review| %>
+        <%= review.content %> -
+        <%= review.user.name %> <br> <br>
+      <% end %>
+    </div>
   </div>
     <div class="col-12 mt-4">
     <div class="map-planes mt-4 ms-5 me-5">
