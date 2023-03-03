@@ -10,4 +10,8 @@ class Booking < ApplicationRecord
     accepted: 1,
     denied: 2
   }
+
+  def ended?
+    DateTime.now > end_date
+  end
 end

@@ -6,10 +6,11 @@ class PagesController < ApplicationController
     @planes = Plane.all
   end
 
-  # à retravailler une fois qu'on aura fait les autorisations
   def profile
-    @bookings = Booking.all
-    @planes = Plane.all
+    @bookings = current_user.bookings
+    @bookings_as_owner = current_user.bookings_as_owner
+    @planes = current_user.planes
+    @review = Review.new
     @n = 0
   end
 end
