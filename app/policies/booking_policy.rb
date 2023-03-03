@@ -1,3 +1,5 @@
+require "date"
+
 class BookingPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
@@ -6,9 +8,9 @@ class BookingPolicy < ApplicationPolicy
     # end
   end
 
-    def create?
-      true
-    end
+  def create?
+    user.age >= 18
+  end
 
     def validate?
       record.plane.user == user && record.status == 'pending'
