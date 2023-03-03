@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
   get "/profile", to: "pages#profile"
+  get "/profile/account", to: "pages#account"
 
   resources :planes do
     resources :bookings, only: [:new, :create]

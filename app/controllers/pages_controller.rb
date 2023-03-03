@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home]
-  skip_after_action :verify_authorized, only: [:home, :profile]
+  skip_after_action :verify_authorized, only: [:home, :profile, :account]
 
   def home
     @planes = Plane.all
@@ -12,5 +12,9 @@ class PagesController < ApplicationController
     @planes = current_user.planes
     @review = Review.new
     @n = 0
+  end
+
+  def account
+    @planes = current_user.planes
   end
 end
