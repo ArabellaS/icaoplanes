@@ -2,7 +2,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingOne">
       <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <span style="color:black;">ALL PLANES</span>
+        <span style="color:black;">My planes</span>
       </button>
     </h2>
     <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
@@ -22,7 +22,6 @@
           </thead>
           <tbody>
             <% @planes.each do |plane| %>
-              <% if plane.user_id == current_user.id %>
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= plane.name %></td>
@@ -41,22 +40,9 @@
                     <% end %>
                   </td>
                 </tr>
-              <% elsif %>
-                <tr>
-                  <th scope="row"><%= @n = @n + 1 %></th>
-                  <td><%= plane.name %></td>
-                  <td><%= plane.description.truncate_words(20) %></td>
-                  <td><%= plane.price %> $</td>
-                  <td><%= plane.user.name %></td>
-                  <td><%= link_to "view", plane_path(plane), class:"btn btn-sm btn-outline-secondary" %></td>
-                  <td><%= link_to "book", new_plane_booking_path(plane), class:"btn btn-sm btn-success" %></td>
-                  <td></td>
-                </tr>
-              <% end %>
             <% end %>
           </tbody>
         </table>
-
         <%= link_to "+ add a plane", new_plane_path %>
       </div>
     </div>
@@ -64,7 +50,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingTwo">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <span style="color:black;">MY PLANES IN BOOKING</span>
+        <span style="color:black;">Bookings on my planes</span>
       </button>
     </h2>
     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
@@ -85,8 +71,7 @@
             </tr>
           </thead>
           <tbody>
-            <% @bookings.each do |booking| %>
-              <% if booking.plane.user_id == current_user.id %>
+            <% @bookings_as_owner.each do |booking| %>
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= booking.plane.name %></td>
@@ -107,7 +92,6 @@
                     <% end %>
                   </td>
                 </tr>
-              <% end %>
             <% end %>
           </tbody>
         </table>
@@ -117,7 +101,7 @@
   <div class="accordion-item">
     <h2 class="accordion-header" id="headingThree">
       <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <span style="color:black;">MY BOOKINGS</span>
+        <span style="color:black;">My bookings</span>
       </button>
     </h2>
     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
@@ -136,17 +120,22 @@
           </thead>
           <tbody>
             <% @bookings.each do |booking| %>
-              <% if booking.user_id == current_user.id %>
                 <tr>
                   <th scope="row"><%= @n = @n + 1 %></th>
                   <td><%= booking.plane.name %></td>
                   <td><%= booking.start_date.to_formatted_s(:short) %></td>
                   <td><%= booking.end_date.to_formatted_s(:short) %></td>
-                  <td><%= diff_in_days(booking.start_date, booking.end_date) * booking.plane.price %> $</td>
+                  <td><%= diff_in_days(booking.start_date, booking.end_date) * booking.plane.price %> $
+                    <% if booking.ended? || true %>
+                      <%= simple_form_for([booking, @review]) do |f| %>
+                        <%= f.input :content %>
+                        <%= f.submit %>
+                      <% end %>
+                    <% end %>
+                  </td>
                   <td><em><%= booking.status %></em></td>
                   <td><%= link_to "view", plane_path(booking.plane), class:"btn btn-sm btn-outline-secondary" %></td>
                 </tr>
-              <% end %>
             <% end %>
           </tbody>
         </table>
