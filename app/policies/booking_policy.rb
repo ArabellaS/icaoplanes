@@ -7,7 +7,7 @@ class BookingPolicy < ApplicationPolicy
   end
 
     def create?
-      true
+      if user.age >= 18
     end
 
     def validate?
