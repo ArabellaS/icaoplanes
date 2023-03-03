@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   end
 
   resources :bookings, only: [:edit, :destroy] do
+    resources :reviews, only: [:new, :create]
     member do
       patch :validate
       patch :deny
